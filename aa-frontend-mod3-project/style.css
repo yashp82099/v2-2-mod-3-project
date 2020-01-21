@@ -50,6 +50,54 @@
     background-size: cover;
 }
 
+#selectionDiv{
+  width: 100%;
+  height: 100%;
+  background-image: url("idk.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#welcome{
+  width: 100%;
+  height: 100%;
+  background-image: url("casino.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#bjSelection{
+  left: 15%;
+  top: 15%;
+  position: relative;
+}
+
+#loginBtn{
+  font-size: 3.5vh;
+  line-height: 1;
+  width: 10%;
+  height: 5%;
+  text-align: center;
+  border: solid 5px white;
+  color: white;
+  background-color: black;
+  margin: auto;
+  padding-inline: auto;
+  padding-top: 7px;
+  top: 40%;
+  position: relative;
+  font-family: "Times New Roman", Times, serif;
+  opacity: 0.5;
+}
+
+#loginBtn:hover{
+  color:black;
+  background-color: white;
+  opacity: 0.5;
+}
+
 #loginH1{
     color:white;
     text-shadow: 3px 3px black;
