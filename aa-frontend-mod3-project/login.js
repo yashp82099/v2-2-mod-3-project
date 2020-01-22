@@ -1,4 +1,4 @@
-function login(){
+function login() {
 
     const loginDiv = document.createElement('div')
     loginDiv.id = 'loginImg'

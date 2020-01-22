@@ -1,4 +1,5 @@
-// blackJack()/
+// user = {name: 'yash', coin: 1000}
+// blackJack(user)
 let user_id = 0
 console.log(`usser id: ${user_id}`);
 const body = document.querySelector('body')
