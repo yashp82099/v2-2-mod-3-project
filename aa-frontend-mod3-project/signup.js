@@ -35,8 +35,14 @@ function signup(){
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({name: userName, coin: 1000})
-        }).then(res => {console.log
-            res.json()}).then(console.log);
+        }).then(res => res.json()).then(data => {
+            if(data.message){
+                alert('Try another name')
+            }else{
+                SignUp.remove()
+                selection(data)
+            }
+        });
         
     })
 

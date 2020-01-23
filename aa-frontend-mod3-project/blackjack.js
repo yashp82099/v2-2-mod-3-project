@@ -1,9 +1,10 @@
 
-function blackJack(user){
+function blackJack(user, userGame){
     // console.log(user.coin);
-    
+    console.log(userGame);
 
 
+    let userScore = userGame.score
     const body = document.querySelector('body')
     const userTotal = document.createElement('h1')
     let total = 0 
@@ -40,6 +41,19 @@ function blackJack(user){
     body.appendChild(div)
     body.appendChild(startBtn)
 
+    const ul = document.createElement('ul')
+    ul.id = 'topList'
+    fetch('http://localhost:3000//games/2').then(res => res.json()).then(list => {
+        
+        list.forEach(player => {
+            const li = document.createElement('li')
+            li.textContent = `${player.name} 🤑 ${player.score}`
+            li.id = 'topPlayer'
+            ul.appendChild(li)
+        
+        })
+    })
+
 
 
      const coinAmount = document.createElement('h1')
@@ -48,6 +62,7 @@ function blackJack(user){
     div.appendChild(coinAmount)
     div.appendChild(imgDiv)
     div.appendChild(dealImgDiv)
+    div.appendChild(ul)
 
     function startGame(){
         console.log(`------current user total ${total}`);
@@ -55,7 +70,7 @@ function blackJack(user){
         if(total > 2){
             userTotal.textContent = total
             userTotal.id = 'userTotal'
-            body.appendChild(userTotal)
+            div.appendChild(userTotal)
         }
         
     
@@ -65,19 +80,22 @@ function blackJack(user){
         if(total === 0){
             if(fetchCard() === 'done'){fetchCard()}
         }else if(total <= 21){
-
+            console.log('---------------'+bit);
+            
             if(bit === 0){
             const bitForm = document.createElement('form')
+            bitForm.id = 'bitForm'
             const bitInput = document.createElement('input')
             bitInput.type = 'text'
             bitInput.placeholder = 'BIT'
             bitInput.id = 'bit'
             const bitBtn = document.createElement('input')
             bitBtn.type = 'submit'
+            bitBtn.id = 'bitBtn'
             bitForm.addEventListener('submit',(e) => userBit(e))
             bitForm.appendChild(bitInput)
             bitForm.appendChild(bitBtn)
-            body.appendChild(bitForm)
+            div.appendChild(bitForm)
 
             }
             if(bit > 10){
@@ -122,7 +140,7 @@ function blackJack(user){
         }
 
         console.log(bit);
-        
+        e.target.remove()
         startGame()
         e.preventDefault()
 
@@ -140,6 +158,7 @@ function blackJack(user){
             },
             body: JSON.stringify( {coin:  user.coin - bit } )
         }).then(res => res.json()).then(user => {
+            console.log(user)
             const loseBar = document.createElement('h1')
             loseBar.id = 'loseBar'
             loseBar.textContent = `That's sad ${user.name}, you just lost $${bit}`
@@ -152,7 +171,7 @@ function blackJack(user){
             while(body.firstChild) {
                 body.firstChild.remove(); 
               }
-            blackJack(user)
+            blackJack(user, userGame)
 
             })
             div.appendChild(restart)
@@ -187,8 +206,15 @@ function blackJack(user){
             while(body.firstChild) {
                 body.firstChild.remove(); 
               }
-            blackJack(user)
-
+              fetch(`http://localhost:3000/user_games/${user.id}`,{
+                method: "PATCH",
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify({score: userScore+100})
+            }).then(res => res.json()).then(newUserGame => {
+                blackJack(user, newUserGame)
+            })
             })
             div.appendChild(restart)
 
@@ -211,6 +237,7 @@ function blackJack(user){
         
         const img = document.createElement('img')
         img.src = card.image
+        img.classList.add('animated', 'flipInX')
         img.id = 'cardImg'
         if(card.value === 'ACE'){
             total += 10
@@ -241,7 +268,7 @@ function blackJack(user){
     
     
     function goDealer(){
-        
+        console.log(`######################${dealerTotal}`)
     if(status === 'LOST'){
         renderLost()
         return 'done'
@@ -252,15 +279,25 @@ function blackJack(user){
         
         if(dealerTotal === 0){
             fetchDealerCard()
-        }else if(dealerTotal < 16 && dealerTotal < total){
+        console.log(`####################### dealer start`)
+        }else if(dealerTotal < 16 && dealerTotal < 21){
+            console.log(`####################### dealer less then 16`) 
             fetchDealerCard()
+
+        }else if(dealerTotal > total){
+            status = 'LOST'
+            console.log(`####################### dealer more the user`)
+            goDealer()
+        }else if(dealerTotal < total){
+            status = 'WIN'
+            console.log(`####################### dealer less then user total`)
+            goDealer()
         }else if(dealerTotal > 21){
-            status = 'WIN'
+            status = 'LOST'
+            console.log(`####################### deal over 21`)
             goDealer()
-        }else if(total > dealerTotal){
-            status = 'WIN'
-            goDealer()
-        }else{
+        }else if(total === dealerTotal){
+            console.log(`####################### dealer draw`)
             status = 'DRAW'
             while(body.firstChild) {
                 body.firstChild.remove();
@@ -269,7 +306,12 @@ function blackJack(user){
             winBar.id = 'winBar'
             winBar.textContent = `Draw!`
             body.appendChild(winBar)
-            blackJack(user)
+            blackJack(user, userGame)
+            return 'done'
+        }else{
+            console.log(`####################### WTF`)
+            status = 'IDK'
+            goDealer()
         }
 
         console.log(dealerTotal);
@@ -292,6 +334,7 @@ function blackJack(user){
     function renderDealerCard(card){
         const img = document.createElement('img')
         img.src = card.image
+        img.classList.add('animated', 'slideInDown')
         img.id = 'dealerImg'
         dealImgDiv.appendChild(img)
         if(card.value === 'ACE'){

@@ -16,7 +16,7 @@ body{
 #restartBtn{
   width: 20%;
   height: 25%;
-  position:relative;
+  position:fixed;
   opacity: 0.7;
   top: 30%;
   left: 40%
@@ -32,7 +32,7 @@ body{
   border: 5px solid rgb(123, 121, 121);
   border-radius: 25px;
   padding: 0, 10px;
-  position:relative;
+  position: fixed;
   left: 3%;
 }
 
@@ -47,9 +47,34 @@ body{
 
 #cardImg{
     width: 10%;
-    width
     height: 25%;
+    /* transform: skew(-20deg, 0deg);*/
+    -ms-transform: skew(30deg,0deg);
 }
+
+#topList{
+  /* display: flex; */
+  list-style-type: none;
+  position: fixed;
+  left: 80%;
+  top: 0%;
+  width: 15%;
+  border: 3px solid black;
+  border-radius: 10px;
+  padding: 0 auto;
+  background-color: black;
+  color: #fff;
+  opacity: 0.7;
+  font-size: 2.5vh;
+}
+#topPlayer{
+  padding: 0, auto;
+  opacity: 1;
+  /* width: 15%; */
+}
+
+
+
 #imgDiv{
   /* margin:auto; */
 
@@ -63,7 +88,8 @@ body{
   /* margin:auto; */
   display: flex;
   justify-content: center;
-  position:relative;
+  position: relative;
+  /* left:40%; */
   top: 20%;
 }
 
@@ -126,6 +152,27 @@ body{
   text-align: center;
 }
 
+#deleteBtn{
+  text-align: center;
+  color: #fff;
+  background-color: rgb(196, 68, 68);
+  border: 1px solid white;
+  width: 20%;
+  font-size: 3.5vh;
+  opacity: 0.7;
+  position: relative;
+  top: 70%;
+  left: 80%;
+}
+
+#deleteBtn:hover{
+  opacity: 1;
+  color: #d73851;
+  background-color: #fff;
+  /* font-size: vh; */
+  border: 1px solid #d73851;
+}
+
 #loginBtn{
   font-size: 3.5vh;
   line-height: 1;
@@ -133,6 +180,7 @@ body{
   height: 5%;
   text-align: center;
   border: solid 5px white;
+  border-radius: 25px;
   color: white;
   background-color: black;
   margin: auto;
@@ -198,6 +246,77 @@ body{
     width: 500px;
     box-shadow: 4px 8px 16px rgba(0, 0, 0, 0.3);
   }
+
+
+  /* #bitForm input[type=date]{
+    -moz-box-shadow: inset -3px -3px 10px #eee;
+    -webkit-box-shadow: inset -3px -3px 10px #eee;
+    box-shadow: inset -3px -3px 10px #eee;
+    border-radius: 15px;
+  }
+  #bitForm input[type=submit]{
+    -moz-box-shadow: inset -3px -3px 10px #cc870a;
+    -webkit-box-shadow: inset -3px -3px 10px #cc870a;
+    box-shadow: inset -3px -3px 10px #cc870a;
+    background-color: #f7b31c; /* Fill color */
+    /* color: white; /* Text color */
+    /* border-radius: 15px; Rounded button edges */
+    /* font-style: italic; Italicize text */
+    /* padding: 10px 30px; Distance between text and border */
+  /* } */
+
+
+  #userTotal{
+    color: rgb(213, 110, 46);
+    font-size: 10vh;
+    font-family: Impact, fantasy;
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    opacity: 0.8;
+    
+  }
+
+  #bitForm {
+    display: flex;
+    overflow-y: scroll;
+    padding-bottom: 1.25rem;
+    margin: auto;
+  }
+  #bitForm input {
+    margin: 0 .25rem;
+    min-width: 125px;
+    border: 1px solid #eee;
+    border-left: 3px solid;
+    border-radius: 5px;
+    transition: border-color .5s ease-out;
+  }
+  #bitForm input:optional {
+    border-left-color: #999;
+  }
+  #bitForm input:required {
+    border-left-color: palegreen;
+  }
+  #bitForm input:invalid {
+    border-left-color: salmon;
+  }
+
+  /* #bit[type=submit]{
+                 width: 15px;
+                 position: absolute;
+                 right: 20px;
+                 bottom: 20px;
+                 background: #09c;
+                 color: #fff;
+                 font-family: tahoma,geneva,algerian;
+                 height: 30px;
+                 -webkit-border-radius: 15px;
+                 -moz-border-radius: 15px;
+                 border-radius: 15px;
+                 border: 1px solid #999;
+             }
+  /* #bit{ */
+
   
   .flex-form > * {
     border: 0;

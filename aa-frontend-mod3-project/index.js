@@ -23,7 +23,7 @@ const br = document.createElement('br')
 welcome.appendChild(br)
 
 const signUpBtn = document.createElement('h1')
-signUpBtn.textContent = 'signUp'
+signUpBtn.textContent = 'SignUp'
 signUpBtn.id = 'loginBtn'
 
 signUpBtn.addEventListener('click',(e) => {

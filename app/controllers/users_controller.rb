@@ -16,14 +16,15 @@ class UsersController < ApplicationController
             @user.save
             render json: @user, include: :user_games
         else
-            render json: 'INVALID'
+            render json: {'message': 'INVALID', 'err': @user.errors.full_messages}
         end
 
     end
 
     def update
         @user = User.find_by(id: params[:id])
-        @user.update(user_params)
+        @user.coin = user_params[:coin]
+        @user.save!
         render json: @user, include: :user_games
     end
 
