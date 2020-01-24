@@ -40,12 +40,54 @@ function selection(user){
     })
     selectionDiv.appendChild(blackJackImg)
 
+    const slotImg = document.createElement('img')
+    slotImg.src = 'slotSelector.png'
+    slotImg.id = 'sSelection'
+    slotImg.addEventListener('click',(e) => { //selectionDiv.remove()
+        // blackJack(user)
+        console.log(e.target);
+        console.log(user.user_games)
+        let slotGames = user.user_games.filter(game => game.game_id === 1)
+        console.log(slotGames);
+        let checkUser = slotGames.find(game => game.user_id === user.id )
+        console.log(checkUser);
+        if(checkUser){
+            console.log(`######################find`);
+            selectionDiv.remove()
+            slotMachine(user, checkUser)
+        }else{
+            console.log(`######################create`);
+            
+            fetch('http://localhost:3000/user_games',{
+                method: 'POST',
+                headers: {
+                    "Content-Type":'application/json'
+                },
+                body: JSON.stringify({user_id: user.id, game_id:1, score:0})
+            }).then(res => res.json()).then(userGame => {
+                selectionDiv.remove()
+                slotMachine(user, userGame)})
+        }
+        
+        
+    })
+    selectionDiv.appendChild(slotImg)
+
+
+
+
+
+
+
+
+
 
     const deleteBtn = document.createElement('h1')
     deleteBtn.textContent = 'DELETE'
     deleteBtn.id = 'deleteBtn'
     deleteBtn.addEventListener('click',(e) => {
         console.log(e.target)
+        fetch(`http://localhost:3000/users/${user_id}`)
     })
     selectionDiv.appendChild(deleteBtn)
 

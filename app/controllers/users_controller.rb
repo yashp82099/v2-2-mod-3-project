@@ -28,6 +28,18 @@ class UsersController < ApplicationController
         render json: @user, include: :user_games
     end
 
+    def destroy
+        @user = User.find_by(name: params[:id])
+        if @user.user_games
+            @user.user_games.each{|game| game.destroy}
+        end
+        @user.destroy
+        render json: @user, include: :user_games
+
+    end
+
+
+
     private
 
     def user_params

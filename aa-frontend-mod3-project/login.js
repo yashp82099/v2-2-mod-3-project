@@ -16,6 +16,7 @@ function login() {
 
     const userInput = document.createElement('input')
     userInput.type = 'search'
+    
     userInput.id = 'userId'
     userInput.placeholder = `Enter you casino ID`
 
@@ -25,6 +26,7 @@ function login() {
 
 
     loginForm.appendChild(userInput)
+    userInput.focus()
     loginForm.appendChild(submitBtn)
     coverDiv.appendChild(loginH1)
     coverDiv.appendChild(loginForm)

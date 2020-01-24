@@ -40,3 +40,10 @@ UserGame.create(user_id: user4.id, game_id: game2.id, score: 0)
 UserGame.create(user_id: user4.id, game_id: game1.id, score: 0)
 
 
+Slot.create(value: 7,image: 'https://images-na.ssl-images-amazon.com/images/I/51dMi2iYAVL._SX466_.png')
+Slot.create(value: 6,image: 'https://cdn4.iconfinder.com/data/icons/slot-machines/512/Watermelon-512.png')
+Slot.create(value: 5,image: 'https://cdn4.iconfinder.com/data/icons/slot-machines/512/Lemon-512.png')
+Slot.create(value: 4,image: 'http://cdn4.iconfinder.com/data/icons/slot-machines/512/Dollars-512.png')
+Slot.create(value: 3,image: 'https://cdn4.iconfinder.com/data/icons/slot-machines/512/Clover-512.png')
+Slot.create(value: 2,image: 'https://cdn4.iconfinder.com/data/icons/slot-machines/512/Grapes-512.png')
+
