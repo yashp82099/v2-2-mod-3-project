@@ -288,16 +288,15 @@ function blackJack(user, userGame){
         }else if(dealerTotal < 16 && dealerTotal < 21){
             console.log(`####################### dealer less then 16`) 
             fetchDealerCard()
-
         }else if(dealerTotal > 21){
-            status = 'LOST'
+            status = 'WIN'
             console.log(`####################### deal over 21`)
             goDealer()
-        }else if(dealerTotal > total){
+        }else if(dealerTotal > total && dealerTotal <= 21){
             status = 'LOST'
             console.log(`####################### dealer more the user`)
             goDealer()
-        }else if(dealerTotal < total){
+        }else if(dealerTotal < total && dealerTotal <= 21){
             status = 'WIN'
             console.log(`####################### dealer less then user total`)
             goDealer()
@@ -319,6 +318,7 @@ function blackJack(user, userGame){
             blackJack(user, userGame)
 
             })
+            div.appendChild(restart)
             return 'done'
         }else{
             console.log(`####################### WTF`)
