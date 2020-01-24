@@ -4,6 +4,11 @@ class UserGamesController < ApplicationController
         render json: @usergames
     end
 
+    def show
+        @usergame = UserGame.find_by(user_id: params[:id])
+        render json: @usergame
+    end
+
     def create
         @usergame = UserGame.create(user_game_params)
         render json: @usergame
@@ -12,6 +17,12 @@ class UserGamesController < ApplicationController
     def update
         @usergame = UserGame.find_by(user_id: params[:id])
         @usergame.update(user_game_params)
+        render json: @usergame
+    end
+
+    def destroy
+        @usergame = UserGame.find_by(user_id: params[:id])
+        @usergame.destroy
         render json: @usergame
     end
 

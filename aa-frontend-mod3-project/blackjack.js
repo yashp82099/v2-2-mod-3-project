@@ -43,15 +43,14 @@ function blackJack(user, userGame){
 
     const ul = document.createElement('ul')
     ul.id = 'topList'
-    fetch('http://localhost:3000//games/2').then(res => res.json()).then(list => {
+    fetch(`http://localhost:3000//user_games/${user.id}`).then(res => res.json()).then(list => {
         
-        list.forEach(player => {
+
             const li = document.createElement('li')
-            li.textContent = `${player.name} 🤑 ${player.score}`
+            li.textContent = `${user.name}'s Score 🤑 ${list.score}`
             li.id = 'topPlayer'
             ul.appendChild(li)
         
-        })
     })
 
 
@@ -108,7 +107,7 @@ function blackJack(user, userGame){
                 e.target.remove()
                 fetchCard()
             })
-            body.appendChild(hitBtn)
+            div.appendChild(hitBtn)
             
     
     
@@ -121,7 +120,7 @@ function blackJack(user, userGame){
                 hitBtn.remove()
                 goDealer()}
                 )
-            body.appendChild(stayBtn)
+            div.appendChild(stayBtn)
             }
         }
     
@@ -228,7 +227,13 @@ function blackJack(user, userGame){
     
     function fetchCard(){
         let number = Math.floor(Math.random() * 51)
-        fetch('http://localhost:3000/cards/'+number).then(res => res.json()).then(card => renderCard(card))
+        fetch('http://localhost:3000/cards/'+number).then(res => res.json()).then(card => {
+            if(card){
+                renderCard(card)
+            }else{
+                fetchCard()
+            }
+        })
         return 'done'
     }
     
@@ -240,7 +245,7 @@ function blackJack(user, userGame){
         img.classList.add('animated', 'flipInX')
         img.id = 'cardImg'
         if(card.value === 'ACE'){
-            total += 10
+            total += 1
         }else if(card.value === 'JACK'){
             total += 10
         }else if(card.value === 'QUEEN'){
@@ -284,6 +289,10 @@ function blackJack(user, userGame){
             console.log(`####################### dealer less then 16`) 
             fetchDealerCard()
 
+        }else if(dealerTotal > 21){
+            status = 'LOST'
+            console.log(`####################### deal over 21`)
+            goDealer()
         }else if(dealerTotal > total){
             status = 'LOST'
             console.log(`####################### dealer more the user`)
@@ -292,21 +301,24 @@ function blackJack(user, userGame){
             status = 'WIN'
             console.log(`####################### dealer less then user total`)
             goDealer()
-        }else if(dealerTotal > 21){
-            status = 'LOST'
-            console.log(`####################### deal over 21`)
-            goDealer()
         }else if(total === dealerTotal){
             console.log(`####################### dealer draw`)
             status = 'DRAW'
-            while(body.firstChild) {
-                body.firstChild.remove();
-            }
             const winBar = document.createElement('h1')
             winBar.id = 'winBar'
             winBar.textContent = `Draw!`
             body.appendChild(winBar)
+            const restart = document.createElement('img')
+            restart.src = 'https://www.pinclipart.com/picdir/big/22-229680_update-clipart-free-for-download-restart-clip-art.png'
+            restart.id = 'restartBtn'
+            restart.addEventListener('click',(e)=>{
+                e.target.remove()
+            while(body.firstChild) {
+                body.firstChild.remove(); 
+              }
             blackJack(user, userGame)
+
+            })
             return 'done'
         }else{
             console.log(`####################### WTF`)
@@ -327,7 +339,14 @@ function blackJack(user, userGame){
         console.log('card fetched');
         
         let number = Math.floor(Math.random() * 51)
-        fetch('http://localhost:3000/cards/'+number).then(res => res.json()).then(card => renderDealerCard(card))
+        fetch('http://localhost:3000/cards/'+number).then(res => res.json()).then(card => {
+            if(card){
+                renderDealerCard(card)
+            }else{
+                fetchDealerCard()
+            }
+        }
+        )
     }
     
     
@@ -338,7 +357,7 @@ function blackJack(user, userGame){
         img.id = 'dealerImg'
         dealImgDiv.appendChild(img)
         if(card.value === 'ACE'){
-            dealerTotal += 10
+            dealerTotal += 1
         }else if(card.value === 'JACK'){
             dealerTotal += 10
         }else if(card.value === 'QUEEN'){
@@ -353,4 +372,35 @@ function blackJack(user, userGame){
         goDealer()
         
     }
+
+    const deleteBtn = document.createElement('h1')
+    deleteBtn.textContent = 'DELETE'
+    deleteBtn.id = 'deleteBtn1'
+    deleteBtn.addEventListener('click',(e) => {
+        console.log(e.target)
+        fetch(`http://localhost:3000/user_games/${user.id}`,{
+            method: 'DELETE',
+            headers:{'Content-Type':'application/json'}
+        }).then(res=>res.json()).then(uG => {
+            div.remove()
+            selection(user)
+            alert('USER_GAME SUCCESSFULLY DELETED')
+        })
+    })
+    div.appendChild(deleteBtn)
+
+    const backBtn = document.createElement('h1')
+    backBtn.textContent = 'GO BACK'
+    backBtn.id = 'backBtn1'
+    backBtn.addEventListener('click',(e) => {
+        while(body.firstChild) {
+            body.firstChild.remove(); 
+          }
+            selection(user)
+    })
+    div.appendChild(backBtn)
+
+
+
+
 }

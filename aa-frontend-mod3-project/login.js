@@ -52,6 +52,8 @@ function login() {
         if(user){
             loginDiv.remove()
             selection(user)
+        }else{
+            alert('TRY AGAIN, USER NOT FOUND')
         }
         })
         e.preventDefault();

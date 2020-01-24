@@ -6,8 +6,10 @@ class GamesController < ApplicationController
 
     def show
         @game = Game.find_by(id: params[:id])
-        
-        render json: @game.topThree
+        @top_three = @game.topThree
+        render json: @top_three
     end
+
+
 
 end

@@ -12,6 +12,34 @@ function slotMachine(user, userGame){
     slotDiv.id = 'slotDiv'
     body.appendChild(slotDiv)
 
+    const backBtn = document.createElement('h1')
+    backBtn.textContent = 'GO BACK'
+    backBtn.id = 'backBtn1'
+    backBtn.addEventListener('click',(e) => {
+        while(body.firstChild) {
+            body.firstChild.remove(); 
+          }
+            selection(user)
+    })
+    slotDiv.appendChild(backBtn)
+
+    const deleteBtn = document.createElement('h1')
+    deleteBtn.textContent = 'DELETE'
+    deleteBtn.id = 'deleteBtn1'
+    deleteBtn.addEventListener('click',(e) => {
+        console.log(e.target)
+        fetch(`http://localhost:3000/user_games/${user.id}`,{
+            method: 'DELETE',
+            headers:{'Content-Type':'application/json'}
+        }).then(res=>res.json()).then(uG => {
+            slotDiv.remove()
+            selection(user)
+            alert('USER_GAME SUCCESSFULLY DELETED')
+        })
+    })
+    slotDiv.appendChild(deleteBtn)
+
+
     const coinAmount = document.createElement('h1')
     coinAmount.textContent = `💵 $${user.coin}`
     coinAmount.id = 'coinAmount'

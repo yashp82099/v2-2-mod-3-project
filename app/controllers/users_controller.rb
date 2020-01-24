@@ -32,9 +32,12 @@ class UsersController < ApplicationController
         @user = User.find_by(name: params[:id])
         if @user.user_games
             @user.user_games.each{|game| game.destroy}
+            @user.destroy
+            render json: @user, include: :user_games
+        else
+            render json: {message: "ERROR"}
         end
-        @user.destroy
-        render json: @user, include: :user_games
+        
 
     end
 

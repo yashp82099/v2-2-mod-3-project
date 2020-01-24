@@ -87,7 +87,15 @@ function selection(user){
     deleteBtn.id = 'deleteBtn'
     deleteBtn.addEventListener('click',(e) => {
         console.log(e.target)
-        fetch(`http://localhost:3000/users/${user_id}`)
+        fetch(`http://localhost:3000/users/${user.name}`,{
+            method: 'DELETE',
+            headers:{'Content-Type':'application/json'}
+        }).then(res=>res.json()).then(user => {
+            
+            selectionDiv.remove()
+          game()
+          alert('USER SUCCESSFULLY DELETED')
+        })
     })
     selectionDiv.appendChild(deleteBtn)
 

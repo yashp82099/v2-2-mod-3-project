@@ -1,7 +1,12 @@
 // user = {name: 'yash', coin: 1000}
 // blackJack(user)
+
+game()
+
+function game(){
+
 let user_id = 0
-console.log(`usser id: ${user_id}`);
+console.log(`user id: ${user_id}`);
 // const body = document.querySelector('body')
 
 // login()
@@ -53,3 +58,4 @@ body.appendChild(welcome)
 // </div> */
 
 
+}
