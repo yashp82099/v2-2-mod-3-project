@@ -91,7 +91,7 @@ function slotMachine(user, userGame){
 
         if(total ===30 ){
             win = 0
-            fetch(`http://localhost:3000/slots/${((Math.floor(Math.random() * 4))+1)}`).then(res => res.json()).then(sym => {
+            fetch(`http://localhost:3000/slots/${((Math.floor(Math.random() * 10))+1)}`).then(res => res.json()).then(sym => {
             
             symbolOne.src = sym.image
             symbolOne.classList.add('animated', 'heartBeat')
@@ -99,7 +99,7 @@ function slotMachine(user, userGame){
             value1 = sym.value
             console.log(`----------------------- 1`)
             }).then(() =>
-            fetch(`http://localhost:3000/slots/${((Math.floor(Math.random() * 4))+1)}`).then(res => res.json()).then(sym => {
+            fetch(`http://localhost:3000/slots/${((Math.floor(Math.random() * 10))+1)}`).then(res => res.json()).then(sym => {
     
             symbolTwo.src = sym.image
             symbolTwo.classList.add('animated', 'heartBeat')
@@ -107,7 +107,7 @@ function slotMachine(user, userGame){
             value2 = sym.value
             console.log(`----------------------- 2`)
             })).then(() => 
-            fetch(`http://localhost:3000/slots/${((Math.floor(Math.random() * 4))+1)}`).then(res => res.json()).then(sym => {
+            fetch(`http://localhost:3000/slots/${((Math.floor(Math.random() * 10))+1)}`).then(res => res.json()).then(sym => {
             
             symbolThree.src = sym.image
             symbolThree.classList.add('animated', 'heartBeat')
